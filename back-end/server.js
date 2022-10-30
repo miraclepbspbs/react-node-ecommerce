@@ -9,7 +9,7 @@ import orderRouter from './routes/orderRoutes.js'
 dotenv.config();
 
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log('connected to db')
   })
@@ -34,10 +34,10 @@ app.use('/api/orders', orderRouter);
 
 const __dirname = path.resolve()
 app.use(express.static(path.join(__dirname, '/front-end/build')));
+
 app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname, '/fron-tend/build/index.html'))
 );
-
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
